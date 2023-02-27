@@ -1,0 +1,274 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "API Documentation of User CRUD APIs",
+    "description": "A simple user CRUD APIs built in nodejs and express"
+  },
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "Users",
+      "description": "API for users"
+    }
+  ],
+  "produces": ["application/json"],
+  "paths": {
+    "/user": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "Get all users",
+        "responses": {
+          "200": {
+            "description": "Returns all users from the database",
+            "schema": {
+              "$ref": "#/definitions/Users"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/BadResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Body",
+            "description": "User object that needs to be created in the database",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserSchema"
+            }
+          }
+        ],
+        "tags": ["Users"],
+        "summary": "Create User",
+        "responses": {
+          "200": {
+            "description": "Returns the created user",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/BadResponse"
+            }
+          }
+        }
+      }
+    },
+    "/user/:id": {
+      "get": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "description": "Id of the user which is to be searched",
+            "type": "integer"
+          }
+        ],
+        "produces": ["application/json"],
+        "tags": ["Users"],
+        "summary": "Get user by id",
+        "responses": {
+          "200": {
+            "description": "Returns a user for a particular id",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "schema": {
+              "$ref": "#/definitions/BadResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/BadResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "description": "Id of the user which needs to be deleted",
+            "type": "integer"
+          }
+        ],
+        "produces": ["application/json"],
+        "tags": ["Users"],
+        "summary": "Delete user by id",
+        "responses": {
+          "200": {
+            "description": "Returns the deleted user",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "schema": {
+              "$ref": "#/definitions/BadResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/BadResponse"
+            }
+          }
+        }
+      },
+      "patch": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "description": "Id of the user which needs to be updated",
+            "type": "integer"
+          }
+        ],
+        "produces": ["application/json"],
+        "tags": ["Users"],
+        "summary": "Update user by id",
+        "responses": {
+          "200": {
+            "description": "Returns the original user (before updation)",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "schema": {
+              "$ref": "#/definitions/BadResponse"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/BadResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Users": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer"
+        },
+        "message": {
+          "type": "string"
+        },
+        "error": {
+          "type": "boolean",
+          "default": false
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserSchema"
+          }
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer"
+        },
+        "message": {
+          "type": "string"
+        },
+        "error": {
+          "type": "boolean",
+          "default": false
+        },
+        "data": {
+          "$ref": "#/definitions/UserSchema"
+        }
+      }
+    },
+    "BadResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer"
+        },
+        "message": {
+          "type": "string"
+        },
+        "error": {
+          "type": "string"
+        },
+        "data": {
+          "type": "object",
+          "default": null
+        }
+      }
+    },
+    "UserSchema": {
+      "type": "object",
+      "required": ["name", "email", "age", "contactno", "birthday"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "contactno": {
+          "type": "integer",
+          "uniqueItems": true
+        },
+        "age": {
+          "type": "integer"
+        },
+        "birthday": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        },
+        "address1": {
+          "type": "string"
+        },
+        "address2": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
