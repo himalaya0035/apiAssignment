@@ -12,8 +12,6 @@ const generateResponseObject = (code,message,error,data) => {
     }
 }
 
-
-
 const getUsers = async (req,res) => {
     try {
         const users = await Users.find().sort({createdAt:-1});
