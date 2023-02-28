@@ -18,7 +18,7 @@ const getUsers = async (req,res) => {
     try {
         const users = await Users.find().sort({createdAt:-1});
         users.map(user => {
-            user.birthday = new Date(user.birthday).toLocaleDateString();
+            user.birthday = new Date(user.birthday).toLocaleDateString().replaceAll('/','-');
         })
         res.status(STATUS_OK).json(
             generateResponseObject(STATUS_OK,"All users fetched successfully",false,users));
@@ -43,7 +43,7 @@ const getUser = async (req,res) => {
                 generateResponseObject(STATUS_NOT_FOUND,"No user found","User does not exist",null)
             );
         }
-        user.birthday = new Date(user.birthday).toLocaleDateString();
+        user.birthday = new Date(user.birthday).toLocaleDateString().replaceAll('/','-');
         return res.status(STATUS_OK).json(
             generateResponseObject(STATUS_OK,"User found successfully",false,user)
         );
@@ -59,7 +59,7 @@ const createUser = async (req,res) => {
     const {age,email} = req.body;
     try {
         const user = await Users.create({...req.body});
-        user.birthday = new Date(user.birthday).toLocaleDateString();
+        user.birthday = new Date(user.birthday).toLocaleDateString().replaceAll('/','-');
         res.status(STATUS_OK).json(
             generateResponseObject(STATUS_OK,"User created successfully",false,user)
         );
@@ -85,7 +85,7 @@ const deleteUser = async (req,res) => {
                 generateResponseObject(STATUS_NOT_FOUND,"No user found","User does not exist",null)
             );
         }
-        user.birthday = new Date(user.birthday).toLocaleDateString();
+        user.birthday = new Date(user.birthday).toLocaleDateString().replaceAll('/','-');
         return res.status(STATUS_OK).json(
             generateResponseObject(STATUS_OK,"User deleted successfully",false,user)
         );
@@ -112,7 +112,7 @@ const updateUser = async (req,res) => {
                 generateResponseObject(STATUS_NOT_FOUND,"No user found","User does not exist",null)
             );
         }
-        user.birthday = new Date(user.birthday).toLocaleDateString();
+        user.birthday = new Date(user.birthday).toLocaleDateString().replaceAll('/','-');
         return res.status(STATUS_OK).json(user);
     }catch (error){
         res.status(STATUS_BAD_REQUEST).json(
