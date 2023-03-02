@@ -18,7 +18,8 @@ const userSchema = new Schema({
     },
     birthday :{
         type : String,
-        required : true
+        required : true,
+        match : [/^\d{4}-\d{2}-\d{2}$/,'Invalid date format, use YYYY-MM-DD']
     },
     gender : {
         type : String,

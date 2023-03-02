@@ -65,15 +65,15 @@
         }
       }
     },
-    "/user/:id": {
+    "/user/{id}": {
       "get": {
         "parameters": [
           {
             "name": "id",
-            "in": "query",
+            "in": "path",
             "required": true,
             "description": "Id of the user which is to be searched",
-            "type": "integer"
+            "type": "string"
           }
         ],
         "produces": ["application/json"],
@@ -104,10 +104,10 @@
         "parameters": [
           {
             "name": "id",
-            "in": "query",
+            "in": "path",
             "required": true,
             "description": "Id of the user which needs to be deleted",
-            "type": "integer"
+            "type": "string"
           }
         ],
         "produces": ["application/json"],
@@ -138,10 +138,19 @@
         "parameters": [
           {
             "name": "id",
-            "in": "query",
+            "in": "path",
             "required": true,
             "description": "Id of the user which needs to be updated",
-            "type": "integer"
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "Body",
+            "description": "User object that needs to be updated in the database",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserSchema"
+            }
           }
         ],
         "produces": ["application/json"],
