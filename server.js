@@ -1,12 +1,12 @@
 const express = require('express');
 const app = express();
+require('dotenv').config()
 const mongoose = require('mongoose')
 const userRoutes = require('./routes/user')
 const swaggerDocs = require('./swagger.json')
 const swaggerUi = require('swagger-ui-express')
-const PORT = '5000'
-const MONGO_URI = 'mongodb+srv://guptahimalaya2:test1234@mernapp.r6piu4w.mongodb.net/?retryWrites=true&w=majority'
-
+const PORT = process.env.PORT
+const MONGO_URI = process.env.MONGO_URI
 app.use(express.json())
 
 app.use((req,res,next) => {
