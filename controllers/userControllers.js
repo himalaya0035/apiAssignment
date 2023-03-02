@@ -106,7 +106,7 @@ const updateUser = async (req,res) => {
         }
         const user = await Users.findByIdAndUpdate({_id:id},{
             ...req.body
-        });
+        },{ runValidators: true });
         if (!user){
             return res.status(STATUS_NOT_FOUND).json(
                 generateResponseObject(STATUS_NOT_FOUND,"No user found","User does not exist",null)
